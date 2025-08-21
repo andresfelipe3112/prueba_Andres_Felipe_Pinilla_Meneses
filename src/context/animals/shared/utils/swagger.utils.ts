@@ -1,4 +1,4 @@
-// src/shared/utils/swagger.utils.ts
+
 import { getSchemaPath } from '@nestjs/swagger';
 import { Animal } from '../../domain/entities/animal.entity';
 

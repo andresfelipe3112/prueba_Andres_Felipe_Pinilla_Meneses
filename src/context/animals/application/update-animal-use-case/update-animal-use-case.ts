@@ -16,15 +16,13 @@ export class UpdateAnimalUseCase {
     id: string,
     dto: UpdateAnimalDto,
   ): Promise<{ animal: AnimalPrimitive }> {
-    // Verificar que el animal existe antes de actualizar
+
     const existingAnimal = await this.animalRepository.findById(id);
 
     if (!existingAnimal) {
       throw new AnimalNotFoundException(`Animal with ID '${id}' not found`);
     }
 
-    // Como el repository update acepta un Partial<Animal>, necesitamos
-    // pasar solo los campos que queremos actualizar sin crear una entidad completa
     const updateData: any = {};
 
     if (dto.name !== undefined) {
@@ -36,7 +34,6 @@ export class UpdateAnimalUseCase {
     }
 
     if (dto.attributes !== undefined) {
-      // Validar que los atributos sean compatibles con el tipo de animal existente
       this.validateAttributesForType(dto.attributes, existingAnimal.getType());
       updateData.attributes = dto.attributes;
     }

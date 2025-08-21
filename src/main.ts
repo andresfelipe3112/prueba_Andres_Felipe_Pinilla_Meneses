@@ -9,7 +9,6 @@ import { ResponseTransformInterceptor } from './shared/infrastructure/intercepto
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Configurar pipes globales para validación
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -19,19 +18,14 @@ async function bootstrap() {
     }),
   );
 
-  // Configurar filtros globales para manejo de excepciones
   app.useGlobalFilters(new GlobalExceptionFilter());
 
-  // Configurar interceptors globales
   app.useGlobalInterceptors(
     new LoggingInterceptor(),
     new ResponseTransformInterceptor(),
   );
 
-  // Configurar CORS
   app.enableCors();
-
-  // Configurar Swagger
   setupSwagger(app);
 
   const port = process.env.PORT || 3000;

@@ -13,7 +13,6 @@ export class DeleteAnimalUseCase {
   async execute(
     dto: DeleteAnimalDto,
   ): Promise<{ success: boolean; message: string }> {
-    // Verificar que el animal existe antes de eliminar
     const existingAnimal = await this.animalRepository.findById(dto.id);
 
     if (!existingAnimal) {

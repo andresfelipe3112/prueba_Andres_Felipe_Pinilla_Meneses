@@ -23,7 +23,6 @@ export class GetAnimalsUseCase {
     const limit = dto.limit || 10;
     const type = dto.type;
 
-    // Ejecutar ambas consultas en paralelo para mejor performance
     const [animals, total] = await Promise.all([
       this.animalRepository.findAll(type, page, limit),
       this.animalRepository.count(type),
@@ -40,7 +39,7 @@ export class GetAnimalsUseCase {
         sound: animal.emitSound(),
         attributes: animal.getAttributes(),
       })),
-      total, // Total real de documentos en la BD
+      total, 
       page,
       pageSize: limit,
       totalPages,
