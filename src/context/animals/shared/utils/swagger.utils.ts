@@ -13,10 +13,8 @@ export const getCreateAnimalSwaggerBody = () => ({
         age: 5,
         type: 'dog',
         attributes: {
-          "attributes": {
             "breed": "Golden Retriever",
             "isGoodBoy": true
-          }
         },
       },
     },
@@ -40,7 +38,9 @@ export const getCreateAnimalSwaggerBody = () => ({
         type: 'cow',
         attributes: {
           "color": "black",
-          "isIndoor": true
+          "isIndoor": true,
+          "weight": 500,
+          "milkProduction": 20
         }
       },
     },
@@ -67,11 +67,31 @@ export const getCreateAnimalSwaggerResponse = () => ({
     },
   },
 });
+export const getFindAnimalSwaggerResponse = () => ({
+  status: 201,
+  description: 'Respuesta exitosa',
+  schema: {
+    $ref: getSchemaPath(Animal),
+    properties: {
+      id: { type: 'string', example: '60c72b2f9b1d8e001f8e1234' },
+      name: { type: 'string', example: 'Fido' },
+      age: { type: 'number', example: 5 },
+      type: { type: 'string', enum: ['dog', 'cat', 'cow'], example: 'dog' },
+      attributes: {
+        type: 'object',
+        example: {
+          breed: 'Golden Retriever',
+          favorite_toy: 'Ball',
+        },
+      },
+    },
+  },
+});
 
 
 export const getAnimalSwaggerResponse = () => ({
   status: 201,
-  description: 'El animal ha sido creado exitosamente.',
+  description: 'Respuesta exitosa',
   schema: {
     $ref: getSchemaPath(Animal),
     properties: {
